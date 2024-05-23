@@ -1,0 +1,9 @@
+Flask
+Flask-Login
+Flask-MySQLDB
+python-dotenv
+openai
+google-generativeai
+langchain
+PyPDF2
+scikit-learn

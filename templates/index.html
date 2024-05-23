@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>GPT</title>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div id="user-info">
+                <p>{{ username }}</p> <!-- Nome do usuário logado -->
+            </div>
+            <button class="new-conversation-btn">
+                <i class="fas fa-plus"></i>
+                Nova Conversa
+            </button>
+            <div class="conversation-list" id="conversation-list">
+                <!-- Conversas serão adicionadas aqui -->
+            </div>
+            <button id="toggleSidebarBtn" class="toggle-sidebar-btn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div id="button-logout">
+                <button id="logout-button">Sair</button> <!-- Botão de logout -->
+            </div>
+        </div>
+        <div class="chat-container">
+            <div class="header">
+                <h1>Como posso ajudá-lo hoje?</h1>
+            </div>
+            <div class="messages-container">
+                <div class="messages" id="chat-output"></div>
+            </div>
+            <div class="input-container">
+                <button id="theme-toggle" title="Toggle Theme">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <button id="attach-button" title="Anexar Arquivo">
+                    <i class="fas fa-paperclip"></i>
+                </button>
+                <input type="file" id="file-input" style="display: none;">
+                <input type="text" id="user-input" placeholder="Pergunte algo...">
+                <button id="send-button" title="Enviar Mensagem"></button>
+                <button id="stop-button" title="Interromper Mensagem" style="display:none;"><i class="fas fa-stop"></i></button>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../static/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</body>
+</html>

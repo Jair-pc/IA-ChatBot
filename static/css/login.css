@@ -1,0 +1,372 @@
+:root {
+  --color-white: #fff;
+  --color-main: #2c2d30;
+}
+
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  background: var(--color-main);
+  display: flex;
+  flex-direction: column; /* Empilhar mensagens verticalmente */
+  align-items: center; /* Centralizar mensagens horizontalmente */
+  justify-content: center; /* Centralizar verticalmente */
+  height: 100vh; /* Ocupar altura total da tela */
+  margin: 0; /* Remover margens padrão */
+  font-size: 1em;
+}
+
+#background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+
+#background img {
+  width: 100px; /* Ajuste conforme necessário */
+  height: auto; /* Ajuste conforme necessário */
+}
+
+#background-text {
+  font-size: 2em;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+#login-container, #cadastro-container {
+  background-color: var(--color-white);
+  padding: 70px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+#login-logo, #cadastro-logo {
+  width: 100px; /* Ajuste conforme necessário */
+  height: auto; /* Ajuste conforme necessário */
+  margin-bottom: 20px;
+}
+
+#login-form, #cadastro-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+button[type="submit"] {
+  background-color: #1877f2;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #0e5a9d;
+}
+
+/* Estilos gerais */
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 300px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease; /* Adiciona transição suave para a mudança de largura */
+}
+
+.sidebar.closed {
+  width: 0;
+  overflow: hidden;
+}
+
+.sidebar.closed .conversation-list,
+.sidebar.closed .new-conversation-btn {
+  display: none;
+}
+
+.new-conversation-btn {
+  width: 100%;
+  height: 40px;
+  background-color: #222;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.2s ease;
+}
+
+.new-conversation-btn:hover {
+  background-color: #555;
+}
+
+.conversation-list {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.conversation {
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.conversation:hover {
+  background-color: #f9f9f9;
+}
+
+.conversation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.conversation-date {
+  font-weight: bold;
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.conversation-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.action-btn:hover {
+  color: #555;
+}
+
+.conversation-content {
+  padding-top: 5px;
+  font-size: 14px;
+  flex-grow: 1;
+}
+
+.toggle-sidebar-btn {
+  align-self: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.chat-container {
+  width: 100%;
+  height: 100%;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  height: 40px;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header > h1 {
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+}
+
+.messages-container {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  padding: 10px 15px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.user-message {
+  background-color: #F1F1F1;
+}
+
+.assistant-message {
+  background-color: #CCC;
+  position: relative;
+}
+
+.assistant-message .loading-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #000;
+  margin-right: 10px;
+  animation: blink 1s linear infinite;
+}
+
+.input-container {
+  padding: 20px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+#user-input {
+  height: 45px;
+  flex-grow: 1;
+  padding: 15px 20px;
+  border: none;
+  outline: none;
+  background-color: #F1F1F1;
+  border-radius: 8px;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+#send-button {
+  width: 45px;
+  height: 45px;
+  background-color: #000;
+  background-image: url('../img/seta-up.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#send-button:hover {
+  background-color: #555;
+}
+
+#stop-button {
+  display: none;
+  width: 45px;
+  height: 45px;
+  background-color: #c00;
+  background-image: url('../img/stop.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#stop-button:hover {
+  background-color: #900;
+}
+
+@keyframes blink {
+  0% {
+      opacity: 1;
+  }
+  50% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
+.temp-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #000;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1000;
+  opacity: 0.9;
+  font-size: 16px;
+}
+
+.editable {
+  cursor: pointer;
+  border: 1px dashed transparent;
+  padding: 2px;
+}
+
+.editable:hover {
+  border: 1px dashed #ccc;
+}
+
+.editing {
+  border: 1px solid #000;
+  background-color: #fff;
+  padding: 2px;
+}
