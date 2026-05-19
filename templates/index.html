@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" id="hljs-theme" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" href="../static/img/Logo.png" type="image/png">
+    <title>UCBvet — Assistente</title>
+    <script>window.UCB_USERNAME = "{{ username }}";</script>
+</head>
+<body>
+<div class="app">
+
+    <!-- ─── Sidebar ──────────────────────────────────────────── -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-top">
+            <div class="sidebar-brand">
+                <img src="../static/img/Logo.png" alt="UCBvet" class="brand-logo">
+                <span class="brand-name">UCBvet</span>
+            </div>
+            <button class="icon-btn" id="toggleSidebarBtn" title="Recolher">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+
+        <button class="new-chat-btn" id="newChatBtn">
+            <i class="fas fa-plus"></i>
+            <span>Nova Conversa</span>
+        </button>
+
+        <div class="sidebar-conversations" id="conversation-list">
+            <!-- Populado pelo JS -->
+        </div>
+
+        <div class="sidebar-footer">
+            <button class="icon-btn theme-btn" id="theme-toggle" title="Alternar tema">
+                <i class="fas fa-sun"></i>
+            </button>
+            <div class="user-chip">
+                <div class="user-initial" id="user-info">{{ username[:1].upper() }}</div>
+                <span class="user-name">{{ username }}</span>
+            </div>
+            <button class="icon-btn" id="change-password-btn" title="Alterar senha">
+                <i class="fas fa-key"></i>
+            </button>
+            <button class="icon-btn danger-btn" id="logout-button" title="Sair">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- ─── Main ─────────────────────────────────────────────── -->
+    <div class="chat-main">
+
+        <!-- Header -->
+        <header class="chat-header">
+            <button class="icon-btn" id="sidebarToggleTop" title="Abrir barra lateral">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-center">
+                <span class="model-badge">
+                    <img src="../static/img/Logo.png" alt="" class="model-badge-logo">
+                    UCBvet
+                </span>
+            </div>
+            <button class="icon-btn" id="exportChatBtn" title="Exportar conversa" style="display:none;">
+                <i class="fas fa-download"></i>
+            </button>
+        </header>
+
+        <!-- Messages -->
+        <div class="messages-scroll" id="messages-scroll">
+            <div class="messages-container" id="chat-output">
+
+                <div class="welcome-screen" id="welcome-screen">
+                    <img src="../static/img/Logo.png" alt="UCBvet" class="welcome-logo">
+                    <h1 class="welcome-title">Como posso ajudá-lo?</h1>
+                    <p class="welcome-sub">Faça uma pergunta ou inicie uma nova conversa.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Input -->
+        <div class="input-area">
+            <div class="prompt-box" id="promptBox">
+
+                <!-- Attachment preview -->
+                <div class="attachment-row" id="attachmentRow" style="display:none;">
+                    <div class="attachment-chip" id="attachmentChip">
+                        <button class="chip-remove" id="removeAttach" title="Remover arquivo">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Textarea -->
+                <textarea id="user-input" placeholder="Pergunte algo..." rows="1"></textarea>
+
+                <!-- Toolbar -->
+                <div class="prompt-toolbar">
+                    <div class="toolbar-left">
+                        <input type="file" id="file-input"
+                            accept="image/*,.pdf,.txt,.docx,.doc,.xlsx,.xls,.csv"
+                            style="display:none;">
+                        <button class="toolbar-btn" id="attach-button" title="Anexar arquivo">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="toolbar-right">
+                        <button class="stop-btn" id="stop-button" style="display:none;" title="Interromper">
+                            <i class="fas fa-stop-circle"></i>
+                            <span>Parar</span>
+                        </button>
+                        <button class="send-btn" id="send-button" disabled title="Enviar">
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            <p class="disclaimer-text">
+                UCBvet pode cometer erros. Verifique informações importantes.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal troca de senha -->
+<div class="modal-overlay" id="pwdModalOverlay">
+    <div class="modal-box" id="pwdModal">
+        <div class="modal-header">
+            <h3><i class="fas fa-key"></i> Alterar Senha</h3>
+            <button class="icon-btn modal-close" id="pwdModalClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-field">
+                <label>Senha atual</label>
+                <input type="password" id="pwdCurrent" placeholder="Digite sua senha atual" autocomplete="current-password">
+            </div>
+            <div class="modal-field">
+                <label>Nova senha</label>
+                <input type="password" id="pwdNew" placeholder="Nova senha (mín. 4 caracteres)" autocomplete="new-password">
+            </div>
+            <div class="modal-field">
+                <label>Confirmar nova senha</label>
+                <input type="password" id="pwdConfirm" placeholder="Repita a nova senha" autocomplete="new-password">
+            </div>
+            <p class="modal-msg" id="pwdMsg"></p>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-btn-cancel" id="pwdCancel">Cancelar</button>
+            <button class="modal-btn-confirm" id="pwdConfirmBtn">Alterar senha</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="../static/js/script.js"></script>
+</body>
+</html>
